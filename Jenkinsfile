@@ -2,14 +2,24 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = "YOUR_DOCKERHUB_USERNAME/task-manager-cicd"
+        DOCKER_IMAGE = "zheer12/task-manager-cicd"
         DOCKER_TAG = "latest"
+        PATH = "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
     }
 
     stages {
         stage('Clone Repository') {
             steps {
                 checkout scm
+            }
+        }
+
+        stage('Check Node and npm') {
+            steps {
+                sh 'which node'
+                sh 'which npm'
+                sh 'node -v'
+                sh 'npm -v'
             }
         }
 
